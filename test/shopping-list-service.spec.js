@@ -8,7 +8,7 @@ describe(`Shopping list service object`, function(){
             id: 1,
             date_added: new Date('2029-01-22T16:28:32.615Z'),
             name: "First test item!",
-            price:10,
+            price:'21.00',
             category: "Lunch",
             checked: false
         },
@@ -16,7 +16,7 @@ describe(`Shopping list service object`, function(){
             id: 2,
             date_added: new Date('2020-01-22T16:28:32.615Z'),
             name: "Second test item!",
-            price:1,
+            price:'1.00',
             category: "Lunch",
             checked: false        
         },
@@ -24,7 +24,7 @@ describe(`Shopping list service object`, function(){
             id: 3,
             date_added: new Date('2021-01-22T16:28:32.615Z'),
             name: "Third test item!",
-            price:5,
+            price:'5.00',
             category: "Lunch",
             checked: false
         },
@@ -63,7 +63,7 @@ describe(`Shopping list service object`, function(){
         it(`getById() resolves an Item by id from 'shopping_list' tables`, () =>{
             const thirdId = 3;
             const thirdTestItem = testItems[thirdId - 1]
-            return ArticlesService.getById(db, thirdId)
+            return ShoppingListService.getById(db, thirdId)
                 .then(actual => {
                     // console.log(`these match? ${actual.date_added === thirdTestArticle.date_added}`)
                     // console.log(`these match? ${actual.date_added} and ${thirdTestArticle.date_added}`)
@@ -94,7 +94,7 @@ describe(`Shopping list service object`, function(){
             const newItemData = {
                 name: 'updated name',
                 category: 'Main',
-                price: 100,
+                price: '21.00',
                 checked: true,
                 date_added: new Date(),
             }
@@ -120,7 +120,7 @@ describe(`Shopping list service object`, function(){
         it(`insertItem() inserts a new item and resolves the new item with an 'id'`, () => {
             const newItem = {
                 name: 'Test new name',
-                price: 100,
+                price: '21.00',
                 category: 'Main',
                 checked:true,
                 date_added: new Date('2020-01-01T00:00:00.000Z')
@@ -132,7 +132,7 @@ describe(`Shopping list service object`, function(){
                         id:1, 
                         name: newItem.name,
                         price: newItem.price,
-                        cheked: newItem.price,
+                        checked: newItem.checked,
                         category: newItem.category, 
                         date_added: new Date (newItem.date_added)
                     })
