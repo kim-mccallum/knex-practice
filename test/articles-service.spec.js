@@ -38,7 +38,7 @@ describe(`Articles service object`, function(){
     after(() => db.destroy())
 
     context(`Given 'blogful_articles' has data`, () => {
-        before(() => {
+        beforeEach(() => {
             return db 
                 .into('blogful_articles')
                 .insert(testArticles)
@@ -51,6 +51,21 @@ describe(`Articles service object`, function(){
                         ...article,
                         date_published: new Date(article.date_published)
                     })))
+                })
+        })
+
+        it(`getById() resolves an article by id from 'blogful_articles' tables`, () =>{
+            const thirdId = 3;
+            const thirdTestArticle = testArticles[thirdId - 1]
+            return ArticlesService.getById(db, thirdId)
+                .then(actual => {
+                    console.log(actual)
+                    expect(actual).to.eql({
+                        id: thirdId, 
+                        title: thirdTestArticle, 
+                        content: thirdTestArticle.content, 
+                        date_published: thirdTestArticle.date_published,
+                    })
                 })
         })
     })
@@ -75,7 +90,7 @@ describe(`Articles service object`, function(){
                         id:1, 
                         title: newArticle.title,
                         content: newArticle.content, 
-                        date_published: newArticle.date_published,
+                        date_published: new Date (newArticle.date_published)
                     })
                 })
         })
